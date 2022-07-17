@@ -9,20 +9,23 @@ strategy("1H-DOGEUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=tr
 // suited for higher volatility markets             //
 //////////////////////////////////////////////////////
 
- 
+  
+//v1 770%  trades 52 dd 18%
+//param 4 3.5 22 7.5
+//profit=10*200, loss=10*60.0)
  
 
 SC = input(close,"data array",source) // data array
 
 // Fast Trail //
-AP1 = input(3,"fast ATR period",integer) // ATR Period
-AF1 = input(0.5,"fast ATR multiplier",float) // ATR Factor
+AP1 = input(4,"fast ATR period",integer) // ATR Period
+AF1 = input(3.5,"fast ATR multiplier",float) // ATR Factor
 SL1 = AF1*atr(AP1) // Stop Loss
 Trail1 = iff(SC>nz(Trail1[1],0) and SC[1]>nz(Trail1[1],0),max(nz(Trail1[1],0),SC-SL1),iff(SC<nz(Trail1[1],0) and SC[1]<nz(Trail1[1],0),min(nz(Trail1[1],0),SC+SL1),iff(SC>nz(Trail1[1],0),SC-SL1,SC+SL1)))
 
 // Slow Trail //
-AP2 = input(20,"slow ATR perod",integer) // ATR Period
-AF2 = input(4.5,"slow ATR multiplier",float) // ATR Factor
+AP2 = input(22,"slow ATR perod",integer) // ATR Period
+AF2 = input(7.5,"slow ATR multiplier",float) // ATR Factor
 SL2 = AF2*atr(AP2) // Stop Loss
 Trail2 = iff(SC>nz(Trail2[1],0) and SC[1]>nz(Trail2[1],0),max(nz(Trail2[1],0),SC-SL2),iff(SC<nz(Trail2[1],0) and SC[1]<nz(Trail2[1],0),min(nz(Trail2[1],0),SC+SL2),iff(SC>nz(Trail2[1],0),SC-SL2,SC+SL2)))
 
@@ -46,29 +49,12 @@ Buy = Green and Bear[1]
 Sell = Red and Bull[1]
  
 if Buy
-    strategy.entry("OPEN LONG",strategy.long,1000, when=strategy.position_size <= 0)
+    strategy.entry("OPEN LONG",strategy.long,3000, when=strategy.position_size <= 0)
     strategy.exit("TPSL LONG ",from_entry="OPEN LONG", profit=10*200, loss=10*60.0)
   
 if Sell
-    strategy.entry("OPEN SHORT",strategy.short,1000,when=strategy.position_size >= 0)
+    strategy.entry("OPEN SHORT",strategy.short,3000,when=strategy.position_size >= 0)
     strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*200.0, loss=10*60.0)
-
-// if (SUMMARY_SIGNALS == 1) and strategy.position_size <= 0 
-//     strategy.entry(id="LONG",long=true,qty=TEST_CONTRACT_SIZE, comment = "OPEN LONG")
-
-// if (SUMMARY_SIGNALS == 2) and strategy.position_size >= 0 and inDateRange 
-//     if (LONG_ONLY)
-//         strategy.close_all(comment = "TPSL LONG")
-//     else
-//         strategy.entry(id="SHORT",long=false,qty=TEST_CONTRACT_SIZE, comment = "OPEN SHORT")    
-
-// longCondition = ta.crossover(ta.sma(close, 14), ta.sma(close, 28))
-// if (longCondition)
-//     strategy.entry("My Long Entry Id", strategy.long)
-
-// shortCondition = ta.crossunder(ta.sma(close, 14), ta.sma(close, 28))
-// if (shortCondition)
-//     strategy.entry("My Short Entry Id", strategy.short)
 
 
 // Alert //
