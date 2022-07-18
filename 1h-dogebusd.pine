@@ -1,5 +1,5 @@
- //@version=2
-strategy("1H-DOGEBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=100)
+   //@version=2
+strategy("V3-1H-DOGEBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=100)
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //
@@ -9,11 +9,18 @@ strategy("1H-DOGEBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=tr
 // suited for higher volatility markets             //
 //////////////////////////////////////////////////////
 
- 
-//v1 680% 50 trades dd 18%
-//param 4 3.5 20 7.5
+  
+//v1 770%  trades 52 dd 18%
+//param 4 3.5 22 7.5
 //profit=10*200, loss=10*60.0)
- 
+
+//v2 1183.29% trades 58 dd 31.7%
+//param 4 0.5 22 7.5
+// profit=10*300, loss=10*150.0
+
+//v3 967.89% 26 trades dd 45%
+//param 4 0.5 22 8.5 
+//profit=10*300, loss=10*150.0
 
 SC = input(close,"data array",source) // data array
 
@@ -24,7 +31,7 @@ SL1 = AF1*atr(AP1) // Stop Loss
 Trail1 = iff(SC>nz(Trail1[1],0) and SC[1]>nz(Trail1[1],0),max(nz(Trail1[1],0),SC-SL1),iff(SC<nz(Trail1[1],0) and SC[1]<nz(Trail1[1],0),min(nz(Trail1[1],0),SC+SL1),iff(SC>nz(Trail1[1],0),SC-SL1,SC+SL1)))
 
 // Slow Trail //
-AP2 = input(20,"slow ATR perod",integer) // ATR Period
+AP2 = input(22,"slow ATR perod",integer) // ATR Period
 AF2 = input(7.5,"slow ATR multiplier",float) // ATR Factor
 SL2 = AF2*atr(AP2) // Stop Loss
 Trail2 = iff(SC>nz(Trail2[1],0) and SC[1]>nz(Trail2[1],0),max(nz(Trail2[1],0),SC-SL2),iff(SC<nz(Trail2[1],0) and SC[1]<nz(Trail2[1],0),min(nz(Trail2[1],0),SC+SL2),iff(SC>nz(Trail2[1],0),SC-SL2,SC+SL2)))
@@ -50,13 +57,11 @@ Sell = Red and Bull[1]
  
 if Buy
     strategy.entry("OPEN LONG",strategy.long,3000, when=strategy.position_size <= 0)
-    strategy.exit("TPSL LONG ",from_entry="OPEN LONG", profit=10*200, loss=10*60.0)
+    strategy.exit("TPSL LONG ",from_entry="OPEN LONG", profit=10*300, loss=10*150.0) // 200 100// 300 150
   
 if Sell
     strategy.entry("OPEN SHORT",strategy.short,3000,when=strategy.position_size >= 0)
-    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*200.0, loss=10*60.0)
-
- 
+    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*300.0, loss=10*150.0)//200 100//300 150
 
 
 // Alert //

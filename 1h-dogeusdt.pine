@@ -1,5 +1,5 @@
- //@version=2
-strategy("1H-DOGEUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=100)
+   //@version=2
+strategy("V3-1H-DOGEUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=100)
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //
@@ -13,7 +13,10 @@ strategy("1H-DOGEUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=tr
 //v1 770%  trades 52 dd 18%
 //param 4 3.5 22 7.5
 //profit=10*200, loss=10*60.0)
- 
+
+//v2 1183.29% trades 58 dd 31.7%
+//param 4 0.5 22 7.5
+// profit=10*300, loss=10*150.0
 
 SC = input(close,"data array",source) // data array
 
@@ -50,11 +53,11 @@ Sell = Red and Bull[1]
  
 if Buy
     strategy.entry("OPEN LONG",strategy.long,3000, when=strategy.position_size <= 0)
-    strategy.exit("TPSL LONG ",from_entry="OPEN LONG", profit=10*200, loss=10*60.0)
+    strategy.exit("TPSL LONG ",from_entry="OPEN LONG", profit=10*300, loss=10*150.0) // 200 100// 300 150
   
 if Sell
     strategy.entry("OPEN SHORT",strategy.short,3000,when=strategy.position_size >= 0)
-    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*200.0, loss=10*60.0)
+    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*300.0, loss=10*150.0)//200 100//300 150
 
 
 // Alert //
