@@ -1,5 +1,11 @@
- //@version=2
-strategy("1H_XRPUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+  //@version=2
+strategy("V2-1H_XRPUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+
+//v1 310.32% profit  158 trades dd 31.5% 
+//param 17 0.5 20 4
+//profit=10*100.0, loss=10*50.0)
+    
+
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //

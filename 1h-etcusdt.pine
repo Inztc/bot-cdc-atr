@@ -1,5 +1,10 @@
- //@version=2
-strategy("V1-1H_ETCUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+   //@version=2
+strategy("V2-1H_ETCUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+
+
+//V1 185.15% profit  71 trades  dd 11.92%
+//param 10 0.5 15 6 
+//profit=10*480.0, loss=10*120.0
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //

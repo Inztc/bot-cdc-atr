@@ -1,5 +1,5 @@
-  //@version=2
-strategy("1H_SANDUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+   //@version=2
+strategy("V1-1H_SANDUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //
@@ -13,13 +13,13 @@ SC = input(close,"data array",source) // data array
 
 // Fast Trail //
 AP1 = input(6,"fast ATR period",integer) // ATR Period
-AF1 = input(4.5,"fast ATR multiplier",float) // ATR Factor
+AF1 = input(0.5,"fast ATR multiplier",float) // ATR Factor
 SL1 = AF1*atr(AP1) // Stop Loss
 Trail1 = iff(SC>nz(Trail1[1],0) and SC[1]>nz(Trail1[1],0),max(nz(Trail1[1],0),SC-SL1),iff(SC<nz(Trail1[1],0) and SC[1]<nz(Trail1[1],0),min(nz(Trail1[1],0),SC+SL1),iff(SC>nz(Trail1[1],0),SC-SL1,SC+SL1)))
 
 // Slow Trail //
-AP2 = input(31,"slow ATR perod",integer) // ATR Period
-AF2 = input(12,"slow ATR multiplier",float) // ATR Factor
+AP2 = input(12,"slow ATR perod",integer) // ATR Period
+AF2 = input(9,"slow ATR multiplier",float) // ATR Factor
 SL2 = AF2*atr(AP2) // Stop Loss
 Trail2 = iff(SC>nz(Trail2[1],0) and SC[1]>nz(Trail2[1],0),max(nz(Trail2[1],0),SC-SL2),iff(SC<nz(Trail2[1],0) and SC[1]<nz(Trail2[1],0),min(nz(Trail2[1],0),SC+SL2),iff(SC>nz(Trail2[1],0),SC-SL2,SC+SL2)))
 
@@ -44,11 +44,11 @@ Sell = Red and Bull[1]
 
 if Buy
     strategy.entry("OPEN LONG",strategy.long, 830, when=strategy.position_size <= 0)
-    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*1000.0, loss=10*100.0) //profit = 200 loss = 40
+    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*300.0, loss=10*100.0) //profit = 200 loss = 40//profit 1000 loss 100
   
 if Sell
     strategy.entry("OPEN SHORT",strategy.short, 830,when=strategy.position_size >= 0)
-    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*1000.0, loss=10*100.0) 
+    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*300.0, loss=10*100.0) 
     
 // Alert //
 alertcondition(Buy,"Buy Signal","Buy ATR Trailing Stop")
