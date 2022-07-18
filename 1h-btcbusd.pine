@@ -1,5 +1,11 @@
- //@version=2
-strategy("1H_BTCBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+   //@version=2
+strategy("V1-1H_BTCBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
+
+//v1 1559.64% profit  185 trades dd 195%
+//param 6 0.5 2 5
+//profit=10*1000, loss=10*700.0
+
+
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //
@@ -9,7 +15,7 @@ strategy("1H_BTCBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=tru
 // suited for higher volatility markets             //
 //////////////////////////////////////////////////////
 
-SC = input(close,"data array",source) 
+SC = input(close,"data array",source) // data array
 
 // Fast Trail //
 AP1 = input(4,"fast ATR period",integer) // ATR Period
@@ -44,11 +50,11 @@ Sell = Red and Bull[1]
 
 if Buy
     strategy.entry("OPEN LONG",strategy.long, 0.05, when=strategy.position_size <= 0)
-    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*1000, loss=10*500.0)
+    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*1000, loss=10*700.0)
   
 if Sell
     strategy.entry("OPEN SHORT",strategy.short, 0.05,when=strategy.position_size >= 0)
-    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*1000.0, loss=10*500.0)
+    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*1000.0, loss=10*700.0)
     
 // Alert //
 alertcondition(Buy,"Buy Signal","Buy ATR Trailing Stop")
