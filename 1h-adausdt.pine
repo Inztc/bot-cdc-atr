@@ -9,7 +9,7 @@ strategy("V2-1H_ADAUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=
 //v2 profit 75.33%  174 trades 6.58% DD
 //param 10 0.5 4 4
 //ema(Hst.50)
-//
+//profit=10*100.0, loss=10*30.0
 
 /////////notes////////////////////////////////////////
 // This is based on the ATR trailing stop indicator //

@@ -18,8 +18,8 @@ strategy("V2-1H_XRPUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=
 SC = input(close,"data array",source) // data array
 
 // Fast Trail //
-AP1 = input(15,"fast ATR period",integer) // ATR Period
-AF1 = input(2.5,"fast ATR multiplier",float) // ATR Factor
+AP1 = input(17,"fast ATR period",integer) // ATR Period
+AF1 = input(0.5,"fast ATR multiplier",float) // ATR Factor
 SL1 = AF1*atr(AP1) // Stop Loss
 Trail1 = iff(SC>nz(Trail1[1],0) and SC[1]>nz(Trail1[1],0),max(nz(Trail1[1],0),SC-SL1),iff(SC<nz(Trail1[1],0) and SC[1]<nz(Trail1[1],0),min(nz(Trail1[1],0),SC+SL1),iff(SC>nz(Trail1[1],0),SC-SL1,SC+SL1)))
 

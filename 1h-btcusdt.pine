@@ -9,6 +9,11 @@ strategy("1H_BTCUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=tru
 // suited for higher volatility markets             //
 //////////////////////////////////////////////////////
 
+//v1 
+//param 3 0.5 20 4.5
+//profit=10*1000.0, loss=10*700.0
+
+
 SC = input(close,"data array",source) // data array
 
 // Fast Trail //
