@@ -1,9 +1,13 @@
- //@version=2
+  //@version=2
 strategy("V2-1H_BTCBUSD_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
 
 //v1 56.05% profit 225 trades dd 16.86%
 //param 2 0.5 2 4
 //profit=10*1000, loss=10*500.0
+
+//v2 68.47% profit 225 trades dd 22.35%
+//param 2 0.5 2 4 
+//profit=10*1000.0, loss=10*700.0
 
 
 /////////notes////////////////////////////////////////
@@ -49,11 +53,11 @@ Sell = Red and Bull[1]
 
 if Buy
     strategy.entry("OPEN LONG",strategy.long, 0.05, when=strategy.position_size <= 0)
-    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*1000, loss=10*500.0)
+    strategy.exit("TPSL LONG",from_entry="OPEN LONG", profit=10*1000, loss=10*700.0)
   
 if Sell
     strategy.entry("OPEN SHORT",strategy.short, 0.05,when=strategy.position_size >= 0)
-    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*1000.0, loss=10*500.0)
+    strategy.exit("TPSL SHORT",from_entry="OPEN SHORT", profit=10*1000.0, loss=10*700.0)
     
 // Alert //
 alertcondition(Buy,"Buy Signal","Buy ATR Trailing Stop")
