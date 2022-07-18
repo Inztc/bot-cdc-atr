@@ -1,4 +1,4 @@
-  //@version=2
+ //@version=2
 strategy("V2-1H_ADAUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=true, max_bars_back=2000, initial_capital=2000)
 
 
@@ -9,6 +9,10 @@ strategy("V2-1H_ADAUSDT_CDC_ATR", overlay=true, precision=4, calc_on_every_tick=
 //v2 profit 75.33%  174 trades 6.58% DD
 //param 10 0.5 4 4
 //ema(Hst.50)
+//profit=10*100.0, loss=10*30.0
+
+//v3 profit 75.21%  218 trades 10.6% dd
+//param 10 0.5 2 4 
 //profit=10*100.0, loss=10*30.0
 
 /////////notes////////////////////////////////////////
@@ -28,7 +32,7 @@ SL1 = AF1*atr(AP1) // Stop Loss
 Trail1 = iff(SC>nz(Trail1[1],0) and SC[1]>nz(Trail1[1],0),max(nz(Trail1[1],0),SC-SL1),iff(SC<nz(Trail1[1],0) and SC[1]<nz(Trail1[1],0),min(nz(Trail1[1],0),SC+SL1),iff(SC>nz(Trail1[1],0),SC-SL1,SC+SL1)))
 
 // Slow Trail //
-AP2 = input(4,"slow ATR perod",integer) // ATR Period
+AP2 = input(2,"slow ATR perod",integer) // ATR Period
 AF2 = input(4,"slow ATR multiplier",float) // ATR Factor
 SL2 = AF2*atr(AP2) // Stop Loss
 Trail2 = iff(SC>nz(Trail2[1],0) and SC[1]>nz(Trail2[1],0),max(nz(Trail2[1],0),SC-SL2),iff(SC<nz(Trail2[1],0) and SC[1]<nz(Trail2[1],0),min(nz(Trail2[1],0),SC+SL2),iff(SC>nz(Trail2[1],0),SC-SL2,SC+SL2)))
